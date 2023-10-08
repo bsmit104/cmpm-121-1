@@ -2,7 +2,8 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "How many boops til the great ascii frog offers wisdom?";
+const gameName =
+  "How many boops til the great ascii frog wizard offers wisdom?";
 
 document.title = gameName;
 
@@ -104,7 +105,7 @@ function changecolor() {
 function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
   if (counter >= item.cost) {
     counter -= item.cost;
-    item.cost *= 2; // Double item cost
+    item.cost *= 2; // Double item cost //step 7
     upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;

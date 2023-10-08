@@ -53,7 +53,7 @@ rate {
 }
 
 .ascii-art::before {
-  content: "        \A(.)_(.)\A _ (   _   ) _\A / \\/`_____'\\/ \\\A__\\ ( (     ) ) /__\A)   /\\ \\___/ /\\   (\A)_/ /|\\   /|\\ \\_(";
+  content: " / \\ \A  /   \\ \A  /_____\\ \A(.)_(.)\A _ (   _   ) _\A / \\/`_____'\\/ \\\A__\\ ( (     ) ) /__\A)   /\\ \\___/ /\\   (\A)_/ -/|\\-- /|\\ \\_(";
   white-space: pre; /* Preserve line breaks and spaces */
   font-family: monospace; /* Use a monospace font to maintain alignment */
   font-size: 14px; /* Adjust font size as needed */
