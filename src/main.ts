@@ -3,7 +3,7 @@ import "./style.css";
 const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameName =
-  "If you press a broken button enough times does it do something?";
+  "If you press a broken button enough times does it do something??";
 
 document.title = gameName;
 
