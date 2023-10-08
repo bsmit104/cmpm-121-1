@@ -19,8 +19,13 @@ button.type = "button";
 // let upgrade1 = false;
 let counter = 0;
 let upgradeRate = 0;
+let globalUpgradeRate = 0;
 // let upgradeCost = 10;
 let lastTimestamp = 0;
+
+// const ratedisplay = document.createElement("rate");
+// header.innerHTML = gameName;
+// app.append(ratedisplay);
 
 interface Item {
   name: string;
@@ -120,6 +125,7 @@ function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
     upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;
+    updateGlobalRate(upgradeRate);
     changecolor();
   }
 }
@@ -144,6 +150,30 @@ for (const item of upgrades) {
 }
 
 changecolor();
+
+const globalRateText = document.createElement("div");
+globalRateText.id = "globalRateText";
+app.append(globalRateText);
+
+// Function to update the global upgrade rate
+function updateGlobalUpgradeRate() {
+  const globalRateText = document.getElementById("globalRateText");
+
+  if (globalRateText) {
+    globalRateText.textContent = `Global Upgrade Rate: ${globalUpgradeRate.toFixed(
+      2,
+    )} boops/sec`;
+  }
+}
+
+// function to call when updated rate
+function updateGlobalRate(upgradeRate: number) {
+  globalUpgradeRate = upgradeRate;
+  updateGlobalUpgradeRate();
+}
+
+// start at 0
+updateGlobalUpgradeRate();
 
 // // frog inspo Joan Stark https://www.asciiart.eu/animals/frogs
 // // got examples of count requesting animation frame from chatgpt to build off of
