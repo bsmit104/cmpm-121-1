@@ -15,15 +15,85 @@ const button = document.createElement("button");
 button.className = "favorite styled ascii-art";
 button.type = "button";
 
-// counter
+// vars
 let counter = 0;
+let upgradeCost = 10;
+let lastTimestamp = 0;
 
 // div to display the counter
 const counterText = document.createElement("div");
 counterText.id = "counterText";
 
-// Function to update and display the counter
+// Display the counter two decimal places
+counterText.textContent = `${counter.toFixed(2)} boops`;
+
+// Function for frame counter
+function Dec_Counter(timestamp: number) {
+  if (!lastTimestamp) {
+    lastTimestamp = timestamp;
+  }
+
+  // Conversion to seconds
+  const secondsElapsed = (timestamp - lastTimestamp) / 1000;
+  // 60 frames per second
+  const decIncrease = 1 / 60;
+
+  const increment = secondsElapsed * decIncrease;
+  counter += increment;
+
+  // update counter display
+  counterText.textContent = `${counter.toFixed(2)} boops`;
+
+  lastTimestamp = timestamp;
+
+  // Request the next animation frame
+  requestAnimationFrame(Dec_Counter);
+}
+
+// avoiding nested loop
+function initializeAnimation() {
+  requestAnimationFrame(Dec_Counter);
+}
+
 function updateCounter() {
+  //update_Color();
+  if (counter >= upgradeCost - 1) {
+    upgradeButton.classList.remove("disabled-tint");
+    upgradeButton.classList.add("enabled-tint");
+  }
+  if (counter == 0) {
+    initializeAnimation();
+  }
+  //   // Initialize the animation loop only on the first click
+  //   if (counter == 0) {
+  //     // Function for frame counter
+  //     function Dec_Counter(timestamp: number) {
+  //       if (!lastTimestamp) {
+  //         lastTimestamp = timestamp;
+  //       }
+
+  //       // Conversion to seconds
+  //       const secondsElapsed = (timestamp - lastTimestamp) / 1000;
+  //       // 60 frames per second
+  //       const decIncrease = 1 / 60;
+
+  //       const increment = secondsElapsed * decIncrease;
+  //       counter += increment;
+
+  //       // update counter display
+  //       counterText.textContent = `${counter.toFixed(2)} boops`;
+
+  //       lastTimestamp = timestamp;
+
+  //       // Request the next animation frame
+  //       requestAnimationFrame(Dec_Counter);
+  //     }
+
+  //     // Start the animation loop
+  //     requestAnimationFrame(Dec_Counter);
+  //   }
+
+  // Increment the counter for each click
   counter++;
   counterText.textContent = `${counter} boops`;
 }
@@ -31,50 +101,32 @@ function updateCounter() {
 // click event for button
 button.addEventListener("click", updateCounter);
 
-// Append the button with counter
+// counter button
 app.append(button, counterText);
 
-////////////////////////////////////////////////////
-// INCREMENT BY SECONDS
-////////////////////////////////////////////////////
-// // Function to increment count every second
-// function increment_every_second() {
-//   counter++;
-//   counterText.textContent = `${counter} boops`;
-// }
+// Upgrade button
+const upgradeButton = document.createElement("button");
+upgradeButton.className = "upgrade-button";
+upgradeButton.type = "button";
+upgradeButton.classList.add("disabled-tint");
+upgradeButton.textContent = `Persuade harder? (${upgradeCost} boops)`;
 
-// // setInterval to call increment_every_second function
-// setInterval(increment_every_second, 1000);
-////////////////////////////////////////////////////
+app.append(upgradeButton);
 
-// last for requestAnimationFrame
-let lastTimestamp = 0; // Timestamp of the last frame
-
-// Function to update the counter based on time elapsed from the last frame
-function update_decimal_counter(timestamp: number) {
-  if (!lastTimestamp) {
-    lastTimestamp = timestamp;
+function purchaseUpgrade() {
+  if (counter >= upgradeCost) {
+    counter -= upgradeCost;
+    upgradeButton.classList.remove("enabled-tint");
+    upgradeButton.classList.add("disabled-tint");
+    //counter = 0;
+    upgradeCost += 10;
+    upgradeButton.textContent = `Persuade harder? (${upgradeCost} boops)`;
+    updateCounter();
   }
-
-  // conversion to seconds
-  const secondsElapsed = (timestamp - lastTimestamp) / 1000;
-  // 60 frames per second
-  const decIncrease = 1 / 60;
-
-  // Calculate the increment
-  const increment = secondsElapsed * decIncrease;
-
-  // increment counter
-  counter += increment;
-
-  // Display the counter two decimal places
-  counterText.textContent = `${counter.toFixed(2)} boops`;
-
-  lastTimestamp = timestamp;
-
-  // Request the next animation frame
-  requestAnimationFrame(update_decimal_counter);
 }
 
-// Start the animation loop
-requestAnimationFrame(update_decimal_counter);
+// Add a click event to the upgrade button
+upgradeButton.addEventListener("click", purchaseUpgrade);
+
+// frog inspo Joan Stark https://www.asciiart.eu/animals/frogs
+// got examples of count requesting animation frame from chatgpt to build off of

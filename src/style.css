@@ -14,6 +14,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  background-color: rgb(8, 49, 13);
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -50,6 +54,14 @@ h1 {
   font-size: 14px; /* Adjust font size as needed */
 }
 
+.disabled-tint {
+  background-color: rgb(132, 42, 42);
+}
+
+.enabled-tint {
+  background-color: rgb(65, 152, 66);
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -71,7 +83,7 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #5bd845;
     background-color: #ffffff;
   }
   a:hover {
