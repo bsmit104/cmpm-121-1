@@ -2,8 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName =
-  "How many boops til the great ascii frog offers wisdom?";
+const gameName = "How many boops til the great ascii frog offers wisdom?";
 
 document.title = gameName;
 
@@ -35,5 +34,11 @@ button.addEventListener("click", updateCounter);
 // Append the button with counter
 app.append(button, counterText);
 
-// Append the button element
-//app.append(button);
+// Function to increment count every second
+function increment_every_second() {
+    counter++;
+    counterText.textContent = `${counter} boops`;
+}
+  
+// setInterval to call increment_every_second function
+setInterval(increment_every_second, 1000);
