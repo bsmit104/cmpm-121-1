@@ -71,6 +71,22 @@ rate {
   cursor: 👆;
 }
 
+.hidden {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#upgradeNotification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 .button-container {
   display: flex;
   flex-direction: column;

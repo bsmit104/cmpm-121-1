@@ -26,13 +26,24 @@ interface Item {
   name: string;
   cost: number;
   rate: number;
+  description: string;
 }
 
 // Upgrade button interface with rates
 const upgrades: Item[] = [
-  { name: "Persuade harder", cost: 10, rate: 0.25 },
-  { name: "Irritate", cost: 100, rate: 1 },
-  { name: "Nudge forcefully", cost: 1000, rate: 5 },
+  {
+    name: "Persuade harder",
+    cost: 10,
+    rate: 0.25,
+    description: "You add some more flare to your poke",
+  },
+  { name: "Irritate", cost: 100, rate: 1, description: "Ascii frog grumbles" },
+  {
+    name: "Nudge forcefully",
+    cost: 1000,
+    rate: 5,
+    description: "The frog is immovable, a stone wall",
+  },
 ];
 
 // div to display the counter
@@ -112,6 +123,7 @@ function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
     upgradeRate += item.rate;
     updateGlobalRate(upgradeRate);
     changecolor();
+    showNotification(`${item.description}`);
   }
 }
 
@@ -160,6 +172,30 @@ function updateGlobalRate(upgradeRate: number) {
 
 // start at 0
 updateGlobalUpgradeRate();
+
+// declare the upgradeNotification element
+let upgradeNotification: HTMLDivElement | null = null;
+
+// Function to show upgrade notifications
+function showNotification(message: string) {
+  if (!upgradeNotification) {
+    upgradeNotification = document.createElement("div");
+    upgradeNotification.id = "upgradeNotification";
+    upgradeNotification.className = "hidden";
+    document.body.appendChild(upgradeNotification);
+  }
+
+  // show the notification
+  upgradeNotification.textContent = message;
+  upgradeNotification.classList.remove("hidden");
+
+  // hide the notification after 2 seconds
+  setTimeout(() => {
+    if (upgradeNotification) {
+      upgradeNotification.classList.add("hidden");
+    }
+  }, 2000);
+}
 
 // // frog inspo Joan Stark https://www.asciiart.eu/animals/frogs
 // // got examples of count requesting animation frame from chatgpt to build off of
