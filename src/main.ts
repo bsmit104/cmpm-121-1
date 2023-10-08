@@ -16,16 +16,10 @@ button.className = "favorite styled ascii-art";
 button.type = "button";
 
 // vars
-// let upgrade1 = false;
 let counter = 0;
 let upgradeRate = 0;
 let globalUpgradeRate = 0;
-// let upgradeCost = 10;
 let lastTimestamp = 0;
-
-// const ratedisplay = document.createElement("rate");
-// header.innerHTML = gameName;
-// app.append(ratedisplay);
 
 interface Item {
   name: string;
@@ -33,8 +27,9 @@ interface Item {
   rate: number;
 }
 
+// Upgrade button interface with rates
 const upgrades: Item[] = [
-  { name: "Persuade harder", cost: 10, rate: 0.2 },
+  { name: "Persuade harder", cost: 10, rate: 0.25 },
   { name: "Irritate", cost: 100, rate: 1 },
   { name: "Nudge forcefully", cost: 1000, rate: 5 },
 ];
@@ -75,10 +70,7 @@ function initializeAnimation() {
 }
 
 function updateCounter() {
-  //itemUpgradeButton: HTMLButtonElement, item: Item
-  // if (upgrade1) {
   initializeAnimation();
-  // }
   // Increment the counter for each click
   counter++;
   counterText.textContent = `${counter} boops`;
@@ -93,18 +85,11 @@ app.append(button, counterText);
 const itemButtons: HTMLButtonElement[] = []; // store references to itemUpgradeButton elements
 
 function changecolor() {
-  // console.log("Updating button colors...");
-  // console.log("itemButtons:", itemButtons);
   for (const item of upgrades) {
-    // console.log("item", item);
     const upgradeButton = itemButtons.find(
       (button) => button.dataset.itemId === item.name,
     );
-    // console.log(`Item: ${item.name}, Button: ${itemUpgradeButton}`);
-    // console.log("check1");
     if (upgradeButton) {
-      // console.log("check2");
-      // console.log(`Checking color for ${item.name}. Counter: ${counter}, Cost: ${item.cost}`);
       if (counter >= item.cost) {
         upgradeButton.classList.remove("disabled-tint");
         upgradeButton.classList.add("enabled-tint");
@@ -118,8 +103,6 @@ function changecolor() {
 
 function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
   if (counter >= item.cost) {
-    //upgrade1 = true;
-    // item.rate *= 2;
     counter -= item.cost;
     item.cost *= 2; // Double item cost
     upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
@@ -138,19 +121,18 @@ for (const item of upgrades) {
   upgradeButton.dataset.itemId = item.name; // Set data-itemid attribute
   upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
 
+  // event listener for each button
   upgradeButton.addEventListener("click", () => {
-    //might need to separate
     purchaseUpgrade(item, upgradeButton);
   });
 
   itemButtons.push(upgradeButton); // reference to the itemUpgradeButton
   app.append(upgradeButton);
-
-  //console.log(`Created itemUpgradeButton for ${item.name}`);
 }
 
 changecolor();
 
+// display global update rate
 const globalRateText = document.createElement("div");
 globalRateText.id = "globalRateText";
 app.append(globalRateText);
@@ -160,9 +142,9 @@ function updateGlobalUpgradeRate() {
   const globalRateText = document.getElementById("globalRateText");
 
   if (globalRateText) {
-    globalRateText.textContent = `Global Upgrade Rate: ${globalUpgradeRate.toFixed(
+    globalRateText.textContent = `Convincing Rate: ${globalUpgradeRate.toFixed(
       2,
-    )} boops/sec`;
+    )} persuasions/sec`;
   }
 }
 
