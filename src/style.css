@@ -43,6 +43,13 @@ h1 {
   text-align: center;
 }
 
+.ascii-art::before {
+  content: "        \A(.)_(.)\A _ (   _   ) _\A / \\/`_____'\\/ \\\A__\\ ( (     ) ) /__\A)   /\\ \\___/ /\\   (\A)_/ /|\\   /|\\ \\_(";
+  white-space: pre; /* Preserve line breaks and spaces */
+  font-family: monospace; /* Use a monospace font to maintain alignment */
+  font-size: 14px; /* Adjust font size as needed */
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -71,6 +78,6 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #a2daae;
   }
 }
