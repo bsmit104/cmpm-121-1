@@ -13,7 +13,7 @@ app.append(header);
 
 // make button
 const button = document.createElement("button");
-button.className = "favorite styled ascii-art";
+button.className = "ascii-art";
 button.type = "button";
 
 // vars
@@ -83,7 +83,8 @@ button.addEventListener("click", updateCounter);
 // counter button
 app.append(button, counterText);
 
-const itemButtons: HTMLButtonElement[] = []; // store references to itemUpgradeButton elements
+// store references to itemUpgradeButton elements
+const itemButtons: HTMLButtonElement[] = [];
 
 function changecolor() {
   for (const item of upgrades) {
@@ -105,7 +106,7 @@ function changecolor() {
 function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
   if (counter >= item.cost) {
     counter -= item.cost;
-    item.cost *= 2; // Double item cost //step 7
+    item.cost *= 2;
     upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;
@@ -127,10 +128,12 @@ for (const item of upgrades) {
     purchaseUpgrade(item, upgradeButton);
   });
 
-  itemButtons.push(upgradeButton); // reference to the itemUpgradeButton
+  // reference to the itemUpgradeButton
+  itemButtons.push(upgradeButton);
   app.append(upgradeButton);
 }
 
+// initialize upgrade color to red
 changecolor();
 
 // display global update rate

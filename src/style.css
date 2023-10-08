@@ -67,6 +67,10 @@ rate {
   background-color: rgb(65, 152, 66);
 }
 
+.custom-cursor {
+  cursor: 👆;
+}
+
 .button-container {
   display: flex;
   flex-direction: column;
