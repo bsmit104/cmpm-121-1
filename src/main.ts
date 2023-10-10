@@ -17,6 +17,7 @@ button.className = "ascii-art";
 button.type = "button";
 
 // vars
+let firstclick = true;
 let counter = 0;
 let upgradeRate = 0;
 let globalUpgradeRate = 0;
@@ -53,6 +54,12 @@ counterText.id = "counterText";
 // Display the counter two decimal places
 counterText.textContent = `${counter.toFixed(2)} boops`;
 
+// Function to increment count every second
+function increment_every_second() {
+  counter++;
+  counterText.textContent = `${counter} boops`;
+}
+
 // Function for frame counter
 function Dec_Counter(timestamp: number) {
   if (!lastTimestamp) {
@@ -82,6 +89,11 @@ function initializeAnimation() {
 }
 
 function updateCounter() {
+  if (firstclick) {
+    // setInterval to call increment_every_second function
+    setInterval(increment_every_second, 1000);
+    firstclick = false;
+  }
   initializeAnimation();
   // Increment the counter for each click
   counter++;
