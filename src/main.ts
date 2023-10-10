@@ -40,6 +40,18 @@ const upgrades: Item[] = [
   },
   { name: "Irritate", cost: 100, rate: 1, description: "Ascii frog grumbles" },
   {
+    name: "kiss",
+    cost: 200,
+    rate: 3,
+    description: "hehe",
+  },
+  {
+    name: "pet",
+    cost: 200,
+    rate: 2,
+    description: "cold and slimy",
+  },
+  {
     name: "Nudge forcefully",
     cost: 1000,
     rate: 5,
