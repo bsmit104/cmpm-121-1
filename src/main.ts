@@ -41,7 +41,7 @@ const upgrades: Item[] = [
   { name: "Irritate", cost: 100, rate: 1, description: "Ascii frog grumbles" },
   {
     name: "kiss",
-    cost: 200,
+    cost: 150,
     rate: 3,
     description: "hehe",
   },
@@ -141,8 +141,8 @@ function changecolor() {
 function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
   if (counter >= item.cost) {
     counter -= item.cost;
-    item.cost *= 2;
-    upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
+    item.cost *= 1.15;
+    upgradeButton.textContent = `${item.name} (${item.cost.toFixed(2)} boops)`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;
     updateGlobalRate(upgradeRate);
@@ -157,7 +157,7 @@ for (const item of upgrades) {
   upgradeButton.className = "upgrade-button";
   upgradeButton.type = "button";
   upgradeButton.dataset.itemId = item.name; // Set data-itemid attribute
-  upgradeButton.textContent = `${item.name} (${item.cost} boops)`;
+  upgradeButton.textContent = `${item.name} (${item.cost.toFixed(2)} boops)`;
 
   // event listener for each button
   upgradeButton.addEventListener("click", () => {
@@ -222,4 +222,4 @@ function showNotification(message: string) {
 }
 
 // // frog inspo Joan Stark https://www.asciiart.eu/animals/frogs
-// // got examples of count requesting animation frame from chatgpt to build off of
+// // got examples of count requesting animation frame and examples of other functions from chatgpt as documentation to learn
