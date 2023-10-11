@@ -27,6 +27,7 @@ interface Item {
   name: string;
   cost: number;
   rate: number;
+  amount : number
   description: string;
 }
 
@@ -36,25 +37,29 @@ const upgrades: Item[] = [
     name: "Persuade harder",
     cost: 10,
     rate: 0.25,
+    amount: 0,
     description: "You add some more flare to your poke",
   },
-  { name: "Irritate", cost: 100, rate: 1, description: "Ascii frog grumbles" },
+  { name: "Irritate", cost: 100, rate: 1, amount: 0, description: "Ascii frog grumbles" },
   {
     name: "kiss",
     cost: 150,
     rate: 3,
+    amount: 0,
     description: "hehe",
   },
   {
     name: "pet",
     cost: 200,
     rate: 2,
+    amount: 0,
     description: "cold and slimy",
   },
   {
     name: "Nudge forcefully",
     cost: 1000,
     rate: 5,
+    amount: 0,
     description: "The frog is immovable, a stone wall",
   },
 ];
@@ -142,7 +147,8 @@ function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
   if (counter >= item.cost) {
     counter -= item.cost;
     item.cost *= 1.15;
-    upgradeButton.textContent = `${item.name} (${item.cost.toFixed(2)} boops)`;
+    item.amount += 1;
+    upgradeButton.textContent = `${item.name} (${item.cost.toFixed(2)} boops) (${item.amount})`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;
     updateGlobalRate(upgradeRate);
