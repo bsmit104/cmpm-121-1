@@ -21,13 +21,14 @@ let firstclick = true;
 let counter = 0;
 let upgradeRate = 0;
 let globalUpgradeRate = 0;
+let frames = performance.now();
 let lastTimestamp = 0;
 
 interface Item {
   name: string;
   cost: number;
   rate: number;
-  amount : number
+  amount: number;
   description: string;
 }
 
@@ -40,7 +41,13 @@ const upgrades: Item[] = [
     amount: 0,
     description: "You add some more flare to your poke",
   },
-  { name: "Irritate", cost: 100, rate: 1, amount: 0, description: "Ascii frog grumbles" },
+  {
+    name: "Irritate",
+    cost: 100,
+    rate: 1,
+    amount: 0,
+    description: "Ascii frog grumbles",
+  },
   {
     name: "kiss",
     cost: 150,
@@ -83,20 +90,19 @@ function Dec_Counter(timestamp: number) {
     lastTimestamp = timestamp;
   }
 
-  // Conversion to seconds
-  const secondsElapsed = (timestamp - lastTimestamp) / 1000;
-  // 60 frames per second
-  const decIncrease = upgradeRate / 60; //const decIncrease = 1 / 60;
+  frames = 1000 / (performance.now() - lastTimestamp);
+  for (let i = 0; i < upgrades.length; i += 1) {
+    if (upgrades[i].amount > 0) {
+      const increment = upgradeRate / frames;
+      counter += increment;
+      // update counter display
+      counterText.textContent = `${counter.toFixed(2)} boops`;
+    }
+  }
+  lastTimestamp = performance.now();
+  frames = 0;
 
-  const increment = secondsElapsed * decIncrease;
-  counter += increment;
-
-  // update counter display
-  counterText.textContent = `${counter.toFixed(2)} boops`;
-
-  lastTimestamp = timestamp;
-
-  // Request the next animation frame
+  // // Request the next animation frame
   requestAnimationFrame(Dec_Counter);
 }
 
@@ -148,7 +154,9 @@ function purchaseUpgrade(item: Item, upgradeButton: HTMLButtonElement) {
     counter -= item.cost;
     item.cost *= 1.15;
     item.amount += 1;
-    upgradeButton.textContent = `${item.name} (${item.cost.toFixed(2)} boops) (${item.amount})`;
+    upgradeButton.textContent = `${item.name} (${item.cost.toFixed(
+      2,
+    )} boops) (${item.amount})`;
     counterText.textContent = `${counter} boops`;
     upgradeRate += item.rate;
     updateGlobalRate(upgradeRate);
